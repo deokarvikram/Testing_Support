@@ -1,11 +1,22 @@
 package com.luv2code.component.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="student")
 public class CollegeStudent implements Student{
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
+    @Column(name="email_address")
     private String emailAddress;
-    private StudentGrades studentGrades;
+
+   // private StudentGrades studentGrades;
 
     public CollegeStudent()
     {}
@@ -36,10 +47,12 @@ public class CollegeStudent implements Student{
         return emailAddress;
     }
 
-    public StudentGrades getStudentGrades() {
-        return studentGrades;
-    }
-
+//    public StudentGrades getStudentGrades() {
+//        return studentGrades;
+//    }
+//    public void setStudentGrades(StudentGrades studentGrades) {
+//        this.studentGrades = studentGrades;
+//    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -52,9 +65,7 @@ public class CollegeStudent implements Student{
         this.emailAddress = emailAddress;
     }
 
-    public void setStudentGrades(StudentGrades studentGrades) {
-        this.studentGrades = studentGrades;
-    }
+
 
     @Override
     public String toString() {
@@ -62,8 +73,9 @@ public class CollegeStudent implements Student{
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", studentGrades=" + studentGrades +
+
                 '}';
+        //", studentGrades=" + studentGrades +
     }
 
     @Override

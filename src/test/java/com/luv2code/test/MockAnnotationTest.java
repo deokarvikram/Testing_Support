@@ -45,7 +45,7 @@ public class MockAnnotationTest {
         studentOne.setFirstName("Eric");
         studentOne.setLastName("Roby");
         studentOne.setEmailAddress("eric.roby@luv2code.com");
-        studentOne.setStudentGrades(studentGrades);
+       // studentOne.setStudentGrades(studentGrades);
     }
 
     @DisplayName("when and verify")
@@ -55,9 +55,9 @@ public class MockAnnotationTest {
         when(applicationDao.addGradeResultsForSingleClass(
                 studentGrades.getMathGradeResults())).thenReturn(100.00);
 
-        assertEquals(100.00, applicationService.addGradeResultsForSingleClass(
-                studentOne.getStudentGrades().getMathGradeResults()
-        ));
+//        assertEquals(100.00, applicationService.addGradeResultsForSingleClass(
+//                studentOne.getStudentGrades().getMathGradeResults()
+//        ));
 
         verify(applicationDao).addGradeResultsForSingleClass(studentGrades.getMathGradeResults());
 

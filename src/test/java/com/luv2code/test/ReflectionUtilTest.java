@@ -34,7 +34,7 @@ public class ReflectionUtilTest {
         studentOne.setFirstName("Eric");
         studentOne.setLastName("Roby");
         studentOne.setEmailAddress("eric@l2c.com");
-        studentOne.setStudentGrades(studentGrades);
+        //studentOne.setStudentGrades(studentGrades);
 
         ReflectionTestUtils.setField(studentOne,"id",1);
         ReflectionTestUtils.setField(studentOne,"studentGrades", new StudentGrades(
