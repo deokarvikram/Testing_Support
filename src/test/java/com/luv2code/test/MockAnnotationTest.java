@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = TestingSupportApplication.class)
@@ -30,10 +31,12 @@ public class MockAnnotationTest {
     @Autowired
     StudentGrades studentGrades;
 
-    @Mock
+    //@Mock
+    @MockBean
     ApplicationDao applicationDao;
 
-    @InjectMocks
+    //@InjectMocks
+    @Autowired
     ApplicationService applicationService;
 
     @BeforeEach
@@ -60,6 +63,29 @@ public class MockAnnotationTest {
 
         verify(applicationDao, times(1)).addGradeResultsForSingleClass(
                 studentGrades.getMathGradeResults());
+    }
+
+    @DisplayName("find GPA")
+    @Test
+    public void assertEqualsTestFindGPA()
+    {
+        when(applicationService.findGradePointAverage(
+                studentGrades.getMathGradeResults())).thenReturn(88.31);
+
+        assertEquals(88.31,applicationDao.findGradePointAverage(studentGrades.getMathGradeResults()));
+    }
+
+    @DisplayName("Multiple calls")
+    @Test
+    public void stubbingConsecutiveCalls()
+    {
+        CollegeStudent nullStudent= (CollegeStudent) context.getBean("collegeStudent");
+        when(applicationDao.checkNull(nullStudent))
+                .thenThrow(RuntimeException.class)
+                .thenReturn("Do not throw exception for second time");
+
+        assertThrows(RuntimeException.class,()->applicationService.checkNull(nullStudent));
+        assertEquals("Do not throw exception for second time",applicationService.checkNull(nullStudent));
     }
 
 
